@@ -1,0 +1,89 @@
+﻿
+
+@model InthinkSolution.Models.LoginViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/login.css">
+    <style>
+        /* Ensure dynamic role titles fit properly inside the design */
+        .login-box h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <img src="~/images/logo.png" alt="InThink Technologies Logo">
+    </div>
+
+    <!-- Side Menu -->
+    <div class="menu">
+        <button class="menu-button" onclick="toggleMenu(this)">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <div class="side-menu" id="menuContent">
+            <a href="#" onclick="updateLoginContainer('Admin')">Admin Login</a>
+            <a href="#" onclick="updateLoginContainer('Manufacturer')">Manufacturer Login</a>
+            <a href="#" onclick="updateLoginContainer('Supervisor')">Supervisor Login</a>
+            <a href="#" onclick="updateLoginContainer('Operator')">Operator Login</a>
+        </div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-box">
+            <h1 id="loginTitle">ADMIN</h1>
+            <form method="post" asp-action="Login" asp-controller="Login">
+                <!-- Hidden input to pass role dynamically -->
+                <input type="hidden" id="roleInput" name="role" value="Admin" />
+
+                <div class="input-group">
+                    <label for="username">USERNAME</label>
+                    <input type="text" id="username" name="Username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" id="password" name="Password" required>
+                </div>
+                <button type="submit" class="login-button">LOGIN</button>
+            </form>
+            <a href="/ForgotPassword" class="forgot-password">Forgot password?</a>
+        </div>
+    </div>
+
+    <script>
+        // Menu toggle functionality
+        function toggleMenu(button) {
+            button.classList.toggle('active');
+            document.getElementById('menuContent').classList.toggle('active');
+        }
+
+        // Update login container dynamically based on the selected role
+        function updateLoginContainer(role) {
+            // Update the hidden input field with the selected role
+            document.getElementById('roleInput').value = role;
+
+            // Update the title dynamically
+            const titleElement = document.getElementById('loginTitle');
+            titleElement.textContent = role.toUpperCase();
+
+            // Adjust font size dynamically if needed (for long role names)
+            if (role.length > 10) {
+                titleElement.style.fontSize = '1.5rem';
+            } else {
+                titleElement.style.fontSize = '1.8rem';
+            }
+        }
+    </script>
+</body>
+</html>

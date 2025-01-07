@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/dashboard.css">
+    <title>Manage Users</title>
+</head>
+<body>
+    <div class="manage-users-container">
+        <h1>Manage Users</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Populate with user data -->
+                <tr>
+                    <td>user1</td>
+                    <td>Supervisor</td>
+                    <td>
+                        <a href="/Admin/EditUser?id=1">Edit</a>
+                        <a href="/Admin/DeleteUser?id=1" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                <!-- Repeat for other users -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+﻿/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* Logo */
+.logo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+    .logo img {
+        width: 150px;
+    }
+
+/* Side Menu */
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    position: relative; /* Ensure it aligns properly */
+    z-index: 1100; /* Ensure it appears above other elements */
+}
+
+    .menu-button .bar {
+        width: 30px;
+        height: 4px;
+        background-color: #0047AB;
+        margin: 3px 0;
+        border-radius: 2px; /* Rounded corners for better visibility */
+        transition: all 0.3s ease; /* Smooth transition for animation */
+    }
+
+    .menu-button.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px); /* Adjust for better alignment */
+        background-color: #0066FF; /* Change color when active for visibility */
+    }
+
+    .menu-button.active .bar:nth-child(2) {
+        opacity: 0; /* Hide middle bar */
+    }
+
+    .menu-button.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px); /* Adjust for better alignment */
+        background-color: #0066FF; /* Change color when active for visibility */
+    }
+
+
+/* Side Menu Styling */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #0047ab;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 60px 20px 20px 20px; /* Add padding at the top to move items below */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    transition: left 0.3s ease;
+}
+
+
+    .side-menu.active {
+        left: 0;
+    }
+
+    /* Side Menu Links */
+    .side-menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #0066cc;
+        transition: background-color 0.3s;
+    }
+    
+        .side-menu a:hover {
+            background-color: #003d80;
+        }
+
+/* Login Container */
+
+
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    background-color: #0047ab;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+    .input-group label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    color: white;
+    text-decoration: none;
+}
