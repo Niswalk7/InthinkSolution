@@ -38,12 +38,52 @@ namespace InthinkSolution.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username, password, or role.");
+                    // Add an error message for invalid credentials
+                    ModelState.AddModelError("", "Invalid username or password.");
                 }
             }
 
             return View(model); // Return to the login view with validation errors
         }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(string username)
+        {
+            // Simulate fetching user details from the database
+            var users = new List<User>
+    {
+        new User { Username = "admin", Email = "admin@example.com" },
+        new User { Username = "manufacturer", Email = "manufacturer@example.com" }
+    };
+
+            var user = users.FirstOrDefault(u => u.Username == username);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Username not found.");
+                return View();
+            }
+
+            // Simulate sending a password reset email
+            var resetLink = $"https://www.example.com/Login/ResetPassword?token={Guid.NewGuid()}";
+            SendEmail(user.Email, "Password Reset Request", $"Click the link to reset your password: {resetLink}");
+
+            ViewBag.Message = "Password reset instructions have been sent to your registered email.";
+            return View();
+        }
+
+        private void SendEmail(string toEmail, string subject, string body)
+        {
+            // Simulate email sending logic
+            Console.WriteLine($"To: {toEmail}\nSubject: {subject}\nBody: {body}");
+        }
+
+
 
         private bool ValidateUser(string username, string password, string role)
         {
