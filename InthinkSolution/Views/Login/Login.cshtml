@@ -43,6 +43,10 @@
     <div class="login-container">
         <div class="login-box">
             <h1 id="loginTitle">ADMIN</h1>
+            @if (TempData["Message"] != null)
+            {
+                <p class="success-message">@TempData["Message"]</p>
+            }
             <div asp-validation-summary="All" class="validation-summary" style="color: red; margin-bottom: 15px;"></div>
             <form method="post" asp-action="Login" asp-controller="Login">
                 <!-- Hidden input to pass role dynamically -->
@@ -54,7 +58,12 @@
                 </div>
                 <div class="input-group">
                     <label for="password">PASSWORD</label>
-                    <input type="password" id="password" name="Password" required>
+                    <div class="password-container">
+                        <input type="password" id="password" name="Password" required>
+                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility('password')">
+                            👁️
+                        </button>
+                    </div>
                 </div>
                 <button type="submit" class="login-button">LOGIN</button>
             </form>
@@ -84,6 +93,18 @@
                 titleElement.style.fontSize = '1.5rem';
             } else {
                 titleElement.style.fontSize = '1.8rem';
+            }
+        }
+         function togglePasswordVisibility(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleButton = passwordInput.nextElementSibling;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleButton.textContent = "🔒";
+            } else {
+                passwordInput.type = "password";
+                toggleButton.textContent = "👁️";
             }
         }
     </script>

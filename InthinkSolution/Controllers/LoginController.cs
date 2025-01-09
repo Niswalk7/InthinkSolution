@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using InthinkSolution.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace InthinkSolution.Controllers
 {
@@ -58,8 +60,7 @@ namespace InthinkSolution.Controllers
             // Simulate fetching user details from the database
             var users = new List<User>
     {
-        new User { Username = "admin", Email = "admin@example.com" },
-        new User { Username = "manufacturer", Email = "manufacturer@example.com" }
+        new User { Username = "admin", Email = "nischalc007@gmail.com" }
     };
 
             var user = users.FirstOrDefault(u => u.Username == username);
@@ -69,9 +70,12 @@ namespace InthinkSolution.Controllers
                 return View();
             }
 
-            // Simulate sending a password reset email
-            var resetLink = $"https://www.example.com/Login/ResetPassword?token={Guid.NewGuid()}";
-            SendEmail(user.Email, "Password Reset Request", $"Click the link to reset your password: {resetLink}");
+            // Generate a unique token and link
+            var resetToken = Guid.NewGuid().ToString();
+            var resetLink = Url.Action("ResetPassword", "Login", new { token = resetToken }, Request.Scheme);
+
+            // Send email
+            SendPasswordResetEmail(user.Email, resetLink);
 
             ViewBag.Message = "Password reset instructions have been sent to your registered email.";
             return View();
@@ -82,6 +86,70 @@ namespace InthinkSolution.Controllers
             // Simulate email sending logic
             Console.WriteLine($"To: {toEmail}\nSubject: {subject}\nBody: {body}");
         }
+
+        public void SendPasswordResetEmail(string recipientEmail, string resetLink)
+        {
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("nischalc007@gmail.com", "ebbs fmmu zfms ianu"),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("your-email@gmail.com"),
+                Subject = "Password Reset Request",
+                Body = $"<p>Hello,</p><p>Click the link below to reset your password:</p><p><a href='{resetLink}'>Reset Password</a></p><p>If you did not request this, please ignore this email.</p>",
+                IsBodyHtml = true,
+            };
+
+            mailMessage.To.Add(recipientEmail);
+
+            try
+            {
+                smtpClient.Send(mailMessage);
+                Console.WriteLine("Email sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token)
+        {
+            // Validate token (add token storage & validation logic)
+            return View(new ResetPasswordViewModel { Token = token });
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(string username, string newPassword)
+        {
+            // Example logic to reset the password
+            if (UpdatePasswordInDatabase(username, newPassword))
+            {
+                // Set a success message for the login page
+                TempData["Message"] = "Your password has been reset successfully. Please log in.";
+
+                // Redirect to the login page
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                ModelState.AddModelError("", "An error occurred while resetting your password.");
+                return View();
+            }
+        }
+
+        // Simulated method to update the password in the database
+        private bool UpdatePasswordInDatabase(string username, string newPassword)
+        {
+            // Add your logic to update the password in the database here
+            return true; // Assume success for demonstration purposes
+        }
+
 
 
 
