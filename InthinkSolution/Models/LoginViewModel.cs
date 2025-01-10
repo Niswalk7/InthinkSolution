@@ -14,4 +14,18 @@ namespace InthinkSolution.Models
         [Required(ErrorMessage = "Role is required")]
         public string Role { get; set; }
     }
+
+    public class User
+    {
+        public string Username { get; set; }
+        public string Email { get; set; }
+    }
+
+    public class ResetPasswordViewModel
+    {
+        public string Token { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+    }
+
 }

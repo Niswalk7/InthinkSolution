@@ -153,3 +153,35 @@ body {
     color: white;
     text-decoration: none;
 }
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #666;
+}
+
+    .password-toggle:focus {
+        outline: none;
+    }
+
+/* Adjust the password input padding to accommodate the button */
+.input-group input[type="password"] {
+    padding-right: 35px;
+}
