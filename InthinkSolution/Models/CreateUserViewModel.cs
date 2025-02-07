@@ -1,9 +1,24 @@
-﻿namespace InthinkSolution.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace InthinkSolution.Models
 {
     public class CreateUserViewModel
     {
-        public string? Username { get; set; }
-        public string? Password { get; set; }
-        public string? Role { get; set; }
+        [Required]
+        public string Username { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public string Email { get; set; }
+
+        [Required]
+        public string Role { get; set; } // Dropdown for roles
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
     }
 }

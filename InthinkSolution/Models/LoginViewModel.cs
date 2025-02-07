@@ -17,8 +17,24 @@ namespace InthinkSolution.Models
 
     public class User
     {
-        public string Username { get; set; }
-        public string Email { get; set; }
+      
+        public int Id { get; set; } // Primary Key
+        public string? Username { get; set; } 
+
+        public string? Email { get; set; }
+
+        
+        [DataType(DataType.Password)]
+        public string? Password { get; set; }
+
+        
+        public string? Role { get; set; } // Dropdown for roles
+
+        
+        public string? FirstName { get; set; }
+
+        
+        public string? LastName { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -1,23 +1,20 @@
-﻿/* General Styling */
+﻿
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
 }
 
-/* Logo */
-.logo {
+
+.top-right-logo {
     position: absolute;
     top: 10px;
     right: 10px;
+    width: 150px; 
 }
 
-    .logo img {
-        width: 150px;
-    }
 
-/* Side Menu */
+
 .menu {
     position: fixed;
     top: 0;
@@ -35,8 +32,8 @@ body {
     align-items: center;
     width: 50px;
     height: 50px;
-    position: relative; /* Ensure it aligns properly */
-    z-index: 1100; /* Ensure it appears above other elements */
+    position: relative;
+    z-index: 1100; 
 }
 
     .menu-button .bar {
@@ -44,26 +41,26 @@ body {
         height: 4px;
         background-color: #0047AB;
         margin: 3px 0;
-        border-radius: 2px; /* Rounded corners for better visibility */
-        transition: all 0.3s ease; /* Smooth transition for animation */
+        border-radius: 2px; 
+        transition: all 0.3s ease; 
     }
 
     .menu-button.active .bar:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px); /* Adjust for better alignment */
-        background-color: #0066FF; /* Change color when active for visibility */
+        transform: rotate(45deg) translate(6px, 6px);
+        background-color: #0066FF; 
     }
 
     .menu-button.active .bar:nth-child(2) {
-        opacity: 0; /* Hide middle bar */
+        opacity: 0;
     }
 
     .menu-button.active .bar:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px); /* Adjust for better alignment */
-        background-color: #0066FF; /* Change color when active for visibility */
+        transform: rotate(-45deg) translate(6px, -6px); 
+        background-color: #0066FF; 
     }
 
 
-/* Side Menu Styling */
+
 .side-menu {
     position: fixed;
     top: 0;
@@ -74,7 +71,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 60px 20px 20px 20px; /* Add padding at the top to move items below */
+    padding: 60px 20px 20px 20px; 
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
     transition: left 0.3s ease;
 }
@@ -84,7 +81,7 @@ body {
         left: 0;
     }
 
-    /* Side Menu Links */
+  
     .side-menu a {
         color: white;
         text-decoration: none;
@@ -99,10 +96,7 @@ body {
             background-color: #003d80;
         }
 
-/* Login Container */
 
-
-/* Login Container */
 .login-container {
     display: flex;
     justify-content: center;
@@ -181,7 +175,7 @@ body {
         outline: none;
     }
 
-/* Adjust the password input padding to accommodate the button */
+
 .input-group input[type="password"] {
     padding-right: 35px;
 }
