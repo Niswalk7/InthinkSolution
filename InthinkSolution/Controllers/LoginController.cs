@@ -11,7 +11,7 @@ namespace InthinkSolution.Controllers
         public IActionResult Login()
         {
             var model = new LoginViewModel();
-            return View(model); // Pass the model to the view
+            return View(model);
         }
 
         [HttpPost]
@@ -19,33 +19,33 @@ namespace InthinkSolution.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Validate user credentials
+                
                 bool isValidUser = ValidateUser(model.Username, model.Password, model.Role);
 
                 if (isValidUser)
                 {
-                    // Set session variables for the logged-in user
+               
                     HttpContext.Session.SetString("Username", model.Username);
                     HttpContext.Session.SetString("Role", model.Role);
 
-                    // Redirect to dashboards based on the user's role
+                   
                     return model.Role switch
                     {
                         "Admin" => RedirectToAction("Dashboard", "Admin"),
                         "Manufacturer" => RedirectToAction("MDashboard", "Manufacturer"),
                         "Supervisor" => RedirectToAction("SDashboard", "Supervisor"),
                         "Operator" => RedirectToAction("ODashboard", "Operator"),
-                        _ => RedirectToAction("Login"), // Redirect back to login if role is invalid
+                        _ => RedirectToAction("Login"), 
                     };
                 }
                 else
                 {
-                    // Add an error message for invalid credentials
+                 
                     ModelState.AddModelError("", "Invalid username or password.");
                 }
             }
 
-            return View(model); // Return to the login view with validation errors
+            return View(model); 
         }
 
         [HttpGet]
@@ -57,7 +57,7 @@ namespace InthinkSolution.Controllers
         [HttpPost]
         public IActionResult ForgotPassword(string username)
         {
-            // Simulate fetching user details from the database
+            
             var users = new List<User>
     {
         new User { Username = "admin", Email = "nischalc007@gmail.com" }
@@ -70,11 +70,11 @@ namespace InthinkSolution.Controllers
                 return View();
             }
 
-            // Generate a unique token and link
+            
             var resetToken = Guid.NewGuid().ToString();
             var resetLink = Url.Action("ResetPassword", "Login", new { token = resetToken }, Request.Scheme);
 
-            // Send email
+           
             SendPasswordResetEmail(user.Email, resetLink);
 
             ViewBag.Message = "Password reset instructions have been sent to your registered email.";
@@ -83,7 +83,7 @@ namespace InthinkSolution.Controllers
 
         private void SendEmail(string toEmail, string subject, string body)
         {
-            // Simulate email sending logic
+           
             Console.WriteLine($"To: {toEmail}\nSubject: {subject}\nBody: {body}");
         }
 
@@ -120,20 +120,20 @@ namespace InthinkSolution.Controllers
         [HttpGet]
         public IActionResult ResetPassword(string token)
         {
-            // Validate token (add token storage & validation logic)
+            
             return View(new ResetPasswordViewModel { Token = token });
         }
 
         [HttpPost]
         public IActionResult ResetPassword(string username, string newPassword)
         {
-            // Example logic to reset the password
+           
             if (UpdatePasswordInDatabase(username, newPassword))
             {
-                // Set a success message for the login page
+                
                 TempData["Message"] = "Your password has been reset successfully. Please log in.";
 
-                // Redirect to the login page
+                
                 return RedirectToAction("Login", "Login");
             }
             else
@@ -143,11 +143,11 @@ namespace InthinkSolution.Controllers
             }
         }
 
-        // Simulated method to update the password in the database
+        
         private bool UpdatePasswordInDatabase(string username, string newPassword)
         {
-            // Add your logic to update the password in the database here
-            return true; // Assume success for demonstration purposes
+            
+            return true; 
         }
 
 
@@ -155,7 +155,7 @@ namespace InthinkSolution.Controllers
 
         private bool ValidateUser(string username, string password, string role)
         {
-            // Simulate database logic with hardcoded user data
+            
             var users = new List<LoginViewModel>
             {
                 new LoginViewModel { Username = "admin", Password = "admin123", Role = "Admin" },
@@ -164,7 +164,7 @@ namespace InthinkSolution.Controllers
                 new LoginViewModel { Username = "operator", Password = "oper123", Role = "Operator" }
             };
 
-            // Check if the user exists with the given credentials
+            
             return users.Any(u => u.Username == username && u.Password == password && u.Role == role);
         }
     }
